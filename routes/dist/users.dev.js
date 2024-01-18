@@ -31,9 +31,9 @@ router.get('/list', validateToken, function (req, res, next) {
 router.get('/login', function (req, res, next) {
   res.render('login');
 });
-router.post('/login', body("username").trim().escape(), body("password").escape(), function (req, res, next) {
+router.post('/login', body("email").trim().escape(), body("password").escape(), function (req, res, next) {
   User.findOne({
-    username: req.body.username
+    email: req.body.email
   }, function (err, user) {
     if (err) throw err;
 
@@ -48,7 +48,7 @@ router.post('/login', body("username").trim().escape(), body("password").escape(
         if (isMatch) {
           var jwtPayload = {
             id: user._id,
-            username: user.username
+            email: user.email
           };
           jwt.sign(jwtPayload, process.env.SECRET, {
             expiresIn: 120
@@ -66,7 +66,7 @@ router.post('/login', body("username").trim().escape(), body("password").escape(
 router.get('/register', function (req, res, next) {
   res.render('register');
 });
-router.post('/register', body("username").isLength({
+router.post('/register', body("email").isLength({
   min: 3
 }).trim().escape(), body("password").isLength({
   min: 5
@@ -80,7 +80,7 @@ router.post('/register', body("username").isLength({
   }
 
   User.findOne({
-    username: req.body.username
+    email: req.body.email
   }, function (err, user) {
     if (err) {
       console.log(err);
@@ -91,14 +91,14 @@ router.post('/register', body("username").isLength({
 
     if (user) {
       return res.status(403).json({
-        username: "Username already in use."
+        email: "Username already in use."
       });
     } else {
       bcrypt.genSalt(10, function (err, salt) {
         bcrypt.hash(req.body.password, salt, function (err, hash) {
           if (err) throw err;
           User.create({
-            username: req.body.username,
+            email: req.body.email,
             password: hash
           }, function (err, ok) {
             if (err) throw err;
