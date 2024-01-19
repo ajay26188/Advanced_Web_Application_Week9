@@ -4,13 +4,13 @@ document.addEventListener('DOMContentLoaded',function () {
     login.addEventListener('submit',function (event) {
         event.preventDefault();
 
-        const formData = new FormData(loginForm);
+        const formData = new FormData(login);
         const loginInfo = {
             email: formData.get('email'),
             password: formData.get('password')
         };
 
-        fetch('/users/login', {
+        fetch('/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

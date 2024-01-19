@@ -4,13 +4,13 @@ document.addEventListener('DOMContentLoaded',function () {
     registration.addEventListener('submit',function (event) {
         event.preventDefault();
 
-        const formData = new FormData(registration);
+        const formData = new FormData(register);
         const registrationInfo = {
             email: formData.get('email'),
             password: formData.get('password')
         };
 
-        fetch('/users/register', {
+        fetch('/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

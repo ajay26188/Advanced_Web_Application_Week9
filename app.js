@@ -32,11 +32,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-app.get('/users/register.html',(req,res) => {
+app.get('/register.html',(req,res) => {
   res.sendFile(path.join(__dirname,'public','stylesheets','register.html'))
 })
 
-app.get('/users/login.html',(req,res) => {
+app.get('/login.html',(req,res) => {
   res.sendFile(path.join(__dirname,'public','stylesheets','login.html'))
 })
 
