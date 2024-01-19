@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded',function () {
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             localStorage.setItem('auth_token',data.token);
 
             window.location.href = '/';
