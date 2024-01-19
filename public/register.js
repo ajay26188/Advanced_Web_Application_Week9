@@ -1,16 +1,17 @@
 document.addEventListener('DOMContentLoaded',function () {
+    console.log('Register page loaded!')
     const registration = document.getElementById('register');
 
     registration.addEventListener('submit',function (event) {
         event.preventDefault();
 
-        const formData = new FormData(register);
+        const formData = new FormData(registration);
         const registrationInfo = {
             email: formData.get('email'),
             password: formData.get('password')
         };
 
-        fetch('/register', {
+        fetch('users/register.html', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

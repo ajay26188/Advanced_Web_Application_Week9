@@ -18,11 +18,11 @@ router.get('/list', validateToken, (req, res, next) => {
   
 });
 
-router.get('/login', (req, res, next) => {
+router.get('/login.html', (req, res, next) => {
   res.render('login');
 });
 
-router.post('/login', 
+router.post('/login.html', 
   body("email").trim().escape(),
   body("password").escape(),
   (req, res, next) => {
@@ -62,10 +62,11 @@ router.get('/register', (req, res, next) => {
   res.render('register');
 });
 
-router.post('/register', 
+router.post('/register.html', 
   body("email").isLength({min: 3}).trim().escape(),
   body("password").isLength({min: 5}),
   (req, res, next) => {
+    console.log('Received a POST request to /register');
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
       return res.status(400).json({errors: errors.array()});
@@ -88,7 +89,7 @@ router.post('/register',
               },
               (err, ok) => {
                 if(err) throw err;
-                return res.redirect("/users/login");
+                return res.redirect("/login.html");
               }
             );
           });
